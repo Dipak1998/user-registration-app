@@ -1,0 +1,45 @@
+<div>
+    <h2>Profile</h2>
+  
+    <ng-container *ngIf="profileData; else loadingTemplate">
+      <p><strong>First Name:</strong> {{ profileData?.firstName }}</p>
+      <p><strong>Last Name:</strong> {{ profileData?.lastName }}</p>
+      <p><strong>Email:</strong> {{ profileData?.email }}</p>
+      <p><strong>Interests:</strong></p>
+      <ul>
+        <li *ngFor="let interest of profileData?.interests">{{ interest }}</li>
+      </ul>
+      <button (click)="editProfile()">Edit</button>
+    </ng-container>
+  
+    <ng-template #loadingTemplate>
+      <p>Loading...</p>
+    </ng-template>
+  
+    <div *ngIf="isEditMode">
+      <h3>Edit Profile</h3>
+      <form [formGroup]="profileForm" (ngSubmit)="onSave()">
+        <mat-form-field appearance="fill">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="firstName" required>
+          <mat-error *ngIf="profileForm?.get('firstName')?.hasError('required')">First Name is required</mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="lastName" required>
+          <mat-error *ngIf="profileForm?.get('lastName')?.hasError('required')">Last Name is required</mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Interests</mat-label>
+          <input matInput formControlName="interests" required>
+          <mat-error *ngIf="profileForm?.get('interests')?.hasError('required')">Interests are required</mat-error>
+        </mat-form-field>
+  
+        <button mat-raised-button color="primary" type="submit">Save</button>
+        <button mat-raised-button (click)="cancelEdit()">Cancel</button>
+      </form>
+    </div>
+  </div>
+  
