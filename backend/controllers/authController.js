@@ -54,7 +54,7 @@ exports.register = async (req, res) => {
     }
     // Encrypt the verification code
     const encryptedToken = cryptoUtils.encryptCode(payload);
-    console.log("encryptedToken", encryptedToken)
+    // console.log("encryptedToken", encryptedToken)
     // Send the encrypted verification code via email
     const mailOptions = {
       from: config.emailFrom,
@@ -75,7 +75,6 @@ exports.register = async (req, res) => {
 
 // Verify the user using the verification code
 exports.verifyUser = async (req, res) => {
-  console.log("req", req.query)
     try {
       const { security_token } = req.query;
   
@@ -84,7 +83,6 @@ exports.verifyUser = async (req, res) => {
       }
       // Check if the provided code matches the stored verification code
       const decryptSecurityToken = cryptoUtils.decryptCode(security_token)
-      console.log("decryptSecurityToken",decryptSecurityToken)
       const { email, expiresIn } = decryptSecurityToken
       const currentDate = new Date().getTime();
       if(expiresIn < currentDate){
@@ -111,7 +109,6 @@ exports.login = async (req, res) => {
     if (!user) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
-    console.log("user is ", user)
     if(!user.isEmailVerified){
       return res.status(405).json({ message: 'Please verify the email then try to login' });
     }

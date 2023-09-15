@@ -9,7 +9,7 @@
       <div class="profile__details">
         <p><strong>First Name:</strong> {{ profileData?.firstName }}</p>
         <p><strong>Last Name:</strong> {{ profileData?.lastName }}</p>
-        <p><strong>Email:</strong> {{ profileData?.email }}</p>
+        <p><strong>Email:</strong> {{ profileData?.user?.email }}</p>
         <p  *ngIf="profileData?.interests?.length > 0;"><strong>Interests:</strong></p>
         <ul *ngIf="profileData?.interests?.length > 0;">
           <li *ngFor="let interest of profileData?.interests">{{ interest }}</li>

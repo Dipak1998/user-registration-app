@@ -1,4 +1,5 @@
 const UserProfile = require('../models/userProfileModel');
+const User= require('../models/userModel');
 
 // Get user profile
 exports.getProfile = async (req, res) => {
@@ -7,7 +8,7 @@ exports.getProfile = async (req, res) => {
     console.log("req",req)
 
     // Find the user profile associated with the user ID
-    const userProfile = await UserProfile.findOne({ userId });
+    const userProfile = await UserProfile.findOne({ userId }).populate('user');
 
     if (!userProfile) {
       return res.status(404).json({ message: 'User profile not found' });
