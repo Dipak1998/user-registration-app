@@ -42,13 +42,12 @@ exports.register = async (req, res) => {
     }
 
     // Hash the password before saving it
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password.trim(), 10);
 
-    const user = new User({ email, password: hashedPassword ,isEmailVerified:false});
+    const user = new User({ email:email.trim(), password: hashedPassword ,isEmailVerified:false});
     await user.save();
-    const userProfile = new UserProfile({firstName:firstName || '', lastName:lastName || '', intrests:intrests ||[] ,user:user._id})
+    const userProfile = new UserProfile({firstName:firstName.trim() || '', lastName:lastName.trim() || '', intrests:intrests ||[] ,user:user._id})
     await userProfile.save();
-    // Generate security key/token
     const payload = {
       email: user.email,
       expiresIn: new Date().getTime() + (24*60*60*1000)
@@ -61,8 +60,8 @@ exports.register = async (req, res) => {
       from: config.emailFrom,
       to: email,
       subject: 'Two-Factor Authentication Code',
-      text: `Hi, Please verify your email account, to access the User Registration Application
-             <a href=${baserUrl}auth/verify?security_token=${encryptedToken}>Please click here to verify <
+      text: `Hi, Please verify your email account, to access the User Registration Application.
+      Please click here to verify account : ${baserUrl}auth/verify?security_token=${encryptedToken}
       `,
     };
     await transporter.sendMail(mailOptions);
@@ -107,7 +106,7 @@ exports.login = async (req, res) => {
     const { email, password} = req.body;
 
     // Find the user by email
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email:email.trim() });
 
     if (!user) {
       return res.status(401).json({ message: 'Invalid credentials' });
@@ -118,14 +117,14 @@ exports.login = async (req, res) => {
     }
 
     // Compare the provided password with the hashed password
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(password.trim(), user.password);
 
     if (!isPasswordValid) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
     const jwtPayload = {
-      email:email
+      email:email.trim()
     }
     const token = createToken(jwtPayload);
     // const token = jwt.sign(jwtPayload, config.secretKey, { expiresIn: '1h' });

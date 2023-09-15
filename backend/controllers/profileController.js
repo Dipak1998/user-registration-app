@@ -32,12 +32,12 @@ exports.updateProfile = async (req, res) => {
     if (!userProfile) {
       // Create a new user profile if it doesn't exist
       console.log("user not available")
-      userProfile = new UserProfile({ userId, firstName, lastName, interests: interests ||[] });
+      userProfile = new UserProfile({ userId, firstName:firstName.trim(), lastName:lastName.trim(), interests: interests ||[] });
     }
 
     // Update user profile fields
-    userProfile.firstName = firstName;
-    userProfile.lastName = lastName;
+    userProfile.firstName = firstName.trim();
+    userProfile.lastName = lastName.trim();
     userProfile.interests = interests;
 
     await userProfile.save();

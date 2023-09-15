@@ -10,7 +10,7 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        min-width: 240px;
+        min-width: 300px;
         min-height: 360px;
         background-color: #ebebeb;
         box-shadow: 10px 7px 8px rgba(130, 122, 122, 0.9);
@@ -18,6 +18,19 @@
 
         .heading{
             margin-bottom: 30px;
+        }
+
+        .action__btn{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .link{
+            margin-top: 20px;
+            text-align: center;
+            a{
+                color: #3f51b5;
+            }
         }
     }
 

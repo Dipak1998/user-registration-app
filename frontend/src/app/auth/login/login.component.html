@@ -17,10 +17,13 @@
           <mat-error *ngIf="loginForm?.get('password')?.hasError('required')">Password is required</mat-error>
         </mat-form-field>
       </div>
-      <div>
+      <div class="action__btn">
         <button mat-raised-button color="primary" type="submit">Login</button>
       </div>
     </form>
+    <div class="link">
+      <span>New to App? </span> <a routerLink="/register">Create an account</a>
+    </div>
   </div>
 </div>
 

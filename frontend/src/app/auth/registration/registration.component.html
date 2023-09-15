@@ -1,28 +1,42 @@
-<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
-  <mat-form-field appearance="fill">
-    <mat-label>First Name</mat-label>
-    <input matInput formControlName="firstName" required>
-    <mat-error *ngIf="registrationForm?.get('firstName')?.hasError('required')">First Name is required</mat-error>
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Last Name</mat-label>
-    <input matInput formControlName="lastName" required>
-    <mat-error *ngIf="registrationForm?.get('lastName')?.hasError('required')">Last Name is required</mat-error>
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Email</mat-label>
-    <input matInput formControlName="email" type="email" required>
-    <mat-error *ngIf="registrationForm?.get('email')?.hasError('required')">Email is required</mat-error>
-    <mat-error *ngIf="registrationForm?.get('email')?.hasError('email')">Invalid email format</mat-error>
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Password</mat-label>
-    <input matInput formControlName="password" type="password" required>
-    <mat-error *ngIf="registrationForm?.get('password')?.hasError('required')">Password is required</mat-error>
-  </mat-form-field>
-
-  <button mat-raised-button color="primary" type="submit">Register</button>
-</form>
+<div class="registration__form_wrapper">
+  <div class="registration__form">
+    <h2 class="heading">Registration Form</h2>
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="firstName" required>
+          <mat-error *ngIf="registrationForm?.get('firstName')?.hasError('required')">First Name is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="lastName" required>
+          <mat-error *ngIf="registrationForm?.get('lastName')?.hasError('required')">Last Name is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email" required>
+          <mat-error *ngIf="registrationForm?.get('email')?.hasError('required')">Email is required</mat-error>
+          <mat-error *ngIf="registrationForm?.get('email')?.hasError('email')">Invalid email format</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" type="password" required>
+          <mat-error *ngIf="registrationForm?.get('password')?.hasError('required')">Password is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="action__btn">
+        <button mat-raised-button color="primary" type="submit">Register</button>
+      </div>
+    </form>
+    <div class="link">
+      <span>Already have an account? </span><a routerLink="/login">Sign in</a>
+    </div>
+  </div>
+</div>

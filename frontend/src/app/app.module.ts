@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule for working with forms
-import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule for making HTTP requests
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'; // Import HttpClientModule for making HTTP requests
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Import BrowserAnimationsModule for animations
 
 import { AppComponent } from './app.component';
@@ -35,6 +35,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth/auth.service';
+import { ToastContainerModule, ToastrModule } from 'ngx-toastr';
+import { UserService } from './services/user.service';
+import { AuthInterceptor } from './services/auth.interceptor';
 
 
 @NgModule({
@@ -55,8 +58,20 @@ import { AuthService } from './auth/auth.service';
     MatButtonModule,
     MatFormFieldModule,
     MatIconModule,
+    ToastrModule.forRoot({
+      closeButton: true,
+      timeOut: 15000, // 15 seconds
+      progressBar: true,
+    }),
   ],
-  providers: [AuthGuard, AuthService],
+  providers: [
+    AuthGuard, 
+    AuthService,
+    UserService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true,
+  },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

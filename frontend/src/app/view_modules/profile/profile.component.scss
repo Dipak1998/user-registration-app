@@ -1,0 +1,33 @@
+.header{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: #3f51b5;
+    height: 50px;
+    width: 100vw;
+    color: #ffffff;
+}
+
+.profile__details_wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 20px;
+    .profile__details{
+        padding: 10px;
+    }
+}
+.edit__form_wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .edit__form{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+}

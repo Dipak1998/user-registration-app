@@ -4,11 +4,12 @@ const mongoose = require('mongoose');
 const config = require('./config/config');
 const authRoutes = require('./routes/auth');
 const profileRoutes = require('./routes/profile');
+const cors = require('cors');
 
 const app = express();
 
 app.use(bodyParser.json());
-
+app.use(cors());
 mongoose.connect(config.dbURI, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.on('connected', () => {
   console.log('Connected to MongoDB');

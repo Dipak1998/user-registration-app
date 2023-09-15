@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-registration',
@@ -10,7 +11,11 @@ import { AuthService } from '../auth.service';
 export class RegistrationComponent implements OnInit {
   registrationForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {}
+  constructor(
+    private fb: FormBuilder, 
+    private authService: AuthService,
+    private toastr: ToastrService
+    ) {}
 
   ngOnInit(): void {
     this.registrationForm = this.fb.group({
@@ -30,10 +35,19 @@ export class RegistrationComponent implements OnInit {
 
     this.authService.register(user).subscribe(
       (response) => {
+        console.log("reponse", response)
+        const msg = response?.message;
+        this.toastr.success(msg, 'Registration Success ', {
+          timeOut: 3000,
+        });
         // Handle successful registration
       },
       (error) => {
-        // Handle registration error
+        const errMsg = error?.error?.message;
+        console.log("error",errMsg );
+        this.toastr.error(errMsg, 'Failed to register account', {
+          timeOut: 3000,
+        });
       }
     );
   }
